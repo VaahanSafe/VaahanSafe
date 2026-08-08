@@ -21,14 +21,18 @@ export function useDocumentHead({ title, description, ogImage, jsonLd }: MetaCon
       metaDesc.setAttribute('content', description);
     }
 
-    if (ogImage) {
-      let metaOg = document.querySelector('meta[property="og:image"]');
-      if (!metaOg) {
-        metaOg = document.createElement('meta');
-        metaOg.setAttribute('property', 'og:image');
-        document.head.appendChild(metaOg);
-      }
-      metaOg.setAttribute('content', ogImage);
+    const targetOgImage = ogImage || 'https://vaahansafe.com/logo.png';
+    let metaOg = document.querySelector('meta[property="og:image"]');
+    if (!metaOg) {
+      metaOg = document.createElement('meta');
+      metaOg.setAttribute('property', 'og:image');
+      document.head.appendChild(metaOg);
+    }
+    metaOg.setAttribute('content', targetOgImage);
+
+    let metaTwitterOg = document.querySelector('meta[name="twitter:image"]');
+    if (metaTwitterOg) {
+      metaTwitterOg.setAttribute('content', targetOgImage);
     }
 
     if (jsonLd) {

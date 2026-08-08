@@ -34,7 +34,7 @@ export default function MarketingLayout() {
       "@context": "https://schema.org",
       "@type": "Product",
       "name": "VaahanSafe Windshield QR System",
-      "image": "https://vaahansafe.com/og-image.png",
+      "image": "https://vaahansafe.com/logo.png",
       "description": "Premium vehicle security system using anonymous QR calling to connect bystanders with vehicle owners securely.",
       "brand": {
         "@type": "Brand",
