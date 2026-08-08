@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --color-brand: var(--primary);
+    --color-brand-dark: var(--primary-dark);
+    --color-accent: var(--accent);
+    --color-emergency: var(--emergency);
+    --color-emergency-dark: var(--emergency-dark);
+    
+    --font-display: 'Inter', sans-serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    --ink: #09090b;
+    --surface: #fafafa;
+    --surface-raised: #ffffff;
+    --primary: #fa8816;
+    --primary-dark: #d36d05;
+    --accent: #FFB100;
+    --emergency: #D7263D;
+    --emergency-dark: #A81930;
+    --success: #2E7D32;
+    --muted-color: #71717a;
+    --border-color: #e4e4e7;
+
+    --background: var(--surface);
+    --foreground: var(--ink);
+    --card: var(--surface-raised);
+    --card-foreground: var(--ink);
+    --popover: var(--surface-raised);
+    --popover-foreground: var(--ink);
+    
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--border-color);
+    --secondary-foreground: var(--ink);
+    --muted: var(--border-color);
+    --muted-foreground: var(--muted-color);
+    --accent-foreground: var(--ink);
+    --destructive: var(--emergency);
+    --border: var(--border-color);
+    --input: var(--border-color);
+    --ring: var(--primary);
+    
+    --chart-1: #fa8816;
+    --chart-2: #FFB100;
+    --chart-3: #D7263D;
+    --chart-4: #09090b;
+    --chart-5: #71717a;
+    
+    --radius: 0.625rem;
+    --sidebar: var(--surface-raised);
+    --sidebar-foreground: var(--ink);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: var(--surface);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-border: var(--border-color);
+    --sidebar-ring: var(--primary);
+
+    /* Navbar scroll animation properties */
+    --navbar-bg: rgba(255, 255, 255, var(--navbar-bg-opacity, 0));
+    --navbar-border: rgba(228, 228, 231, var(--navbar-border-opacity, 0));
+    --navbar-shadow: 0 4px 20px -2px rgba(0, 0, 0, calc(var(--navbar-shadow-opacity, 0) * 0.05));
+}
+
+.dark {
+    --background: #000000;
+    --foreground: #fafafa;
+    --card: #09090b;
+    --card-foreground: #fafafa;
+    --popover: #09090b;
+    --popover-foreground: #fafafa;
+    
+    --primary-foreground: #FFFFFF;
+    --secondary: #18181b;
+    --secondary-foreground: #fafafa;
+    --muted: #18181b;
+    --muted-foreground: var(--muted-color);
+    --accent-foreground: var(--ink);
+    --destructive: var(--emergency);
+    --border: #27272a;
+    --input: #27272a;
+    --ring: var(--primary);
+    
+    --sidebar: #09090b;
+    --sidebar-foreground: #fafafa;
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #18181b;
+    --sidebar-accent-foreground: #fafafa;
+    --sidebar-border: #27272a;
+    --sidebar-ring: var(--primary);
+
+    /* Navbar scroll animation properties - Dark Override */
+    --navbar-bg: rgba(10, 10, 12, var(--navbar-bg-opacity, 0));
+    --navbar-border: rgba(63, 63, 70, var(--navbar-border-opacity, 0));
+    --navbar-shadow: 0 4px 20px -2px rgba(0, 0, 0, calc(var(--navbar-shadow-opacity, 0) * 0.5));
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6, .font-display {
+    @apply font-display tracking-tight;
+  }
+  .font-mono, pre, code {
+    @apply font-mono;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  
+  /* Premium Theme-Aligned Scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+/* Disable focus outlines on all Recharts wrapper and internal child elements */
+.recharts-wrapper,
+.recharts-wrapper *,
+.recharts-wrapper *:focus,
+.recharts-wrapper *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}

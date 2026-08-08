@@ -1,0 +1,13 @@
+/* Font imports with display swap */
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/roboto-slab/index.css";
+
+:root {
+  font-family: 'Inter Variable', sans-serif;
+  font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab Variable', serif;
+  font-display: swap;
+}

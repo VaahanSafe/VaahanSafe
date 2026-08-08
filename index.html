@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VaahanSafe | Intelligent Vehicle Safety &amp; Real-time Tracking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <meta name="description" content="VaahanSafe is a premium vehicle safety and security ecosystem. Monitor location in real-time, get instant anti-theft alerts, analyze driving behavior, and secure your journeys." />
+    <meta name="keywords" content="vehicle tracking, GPS tracking, vehicle safety, anti-theft alarm, geofencing, driver monitoring, VaahanSafe" />
+    <script>
+      (function() {
+        try {
+          var raw = localStorage.getItem('vs_ui_preferences');
+          var theme = 'dark';
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && parsed.state && parsed.state.theme) {
+              theme = parsed.state.theme;
+            }
+          }
+          var root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          if (theme === 'system') {
+            var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            root.classList.add(systemDark ? 'dark' : 'light');
+          } else {
+            root.classList.add(theme);
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

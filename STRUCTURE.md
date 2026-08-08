@@ -1,0 +1,239 @@
+# VaahanSafe Frontend File Structure
+
+```text
+public/
+│   ├── favicon.svg
+│   ├── favicon.ico
+│   ├── apple-touch-icon.png
+│   ├── manifest.webmanifest
+│   ├── robots.txt
+│   ├── security.txt
+│   └── og-image.png
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── vite-env.d.ts
+│   ├── router/
+│   │   ├── index.tsx
+│   │   ├── routes.marketing.tsx
+│   │   ├── routes.auth.tsx
+│   │   ├── routes.dashboard.tsx
+│   │   ├── routes.scan.tsx
+│   │   ├── routes.admin.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── AdminRoute.tsx
+│   │   └── GuestOnlyRoute.tsx
+│   ├── layouts/
+│   │   ├── MarketingLayout.tsx
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   ├── AdminLayout.tsx
+│   │   └── ScanLayout.tsx
+│   ├── pages/
+│   │   ├── marketing/
+│   │   │   ├── LandingPage.tsx
+│   │   │   ├── PricingPage.tsx
+│   │   │   ├── HowItWorksPage.tsx
+│   │   │   ├── FeaturesPage.tsx
+│   │   │   ├── FaqPage.tsx
+│   │   │   ├── ContactSalesPage.tsx
+│   │   │   ├── PrivacyPolicyPage.tsx
+│   │   │   └── TermsOfServicePage.tsx
+│   │   ├── auth/
+│   │   │   ├── LoginPage.tsx
+│   │   │   ├── OtpVerifyPage.tsx
+│   │   │   └── OnboardingPage.tsx
+│   │   ├── dashboard/
+│   │   │   ├── DashboardHomePage.tsx
+│   │   │   ├── VehiclesListPage.tsx
+│   │   │   ├── VehicleRegisterPage.tsx
+│   │   │   ├── VehicleDetailPage.tsx
+│   │   │   ├── VehicleContactsPage.tsx
+│   │   │   ├── VehicleMedicalPage.tsx
+│   │   │   ├── VehicleScanHistoryPage.tsx
+│   │   │   ├── VehicleAlertHistoryPage.tsx
+│   │   │   ├── BillingPage.tsx
+│   │   │   ├── CheckoutPage.tsx
+│   │   │   ├── ProfileSettingsPage.tsx
+│   │   │   ├── SecuritySettingsPage.tsx
+│   │   │   └── NotificationsPage.tsx
+│   │   ├── scan/               (public — no auth, street-facing)
+│   │   │   ├── ScanLandingPage.tsx
+│   │   │   ├── EmergencyReportPage.tsx
+│   │   │   ├── WrongParkingReportPage.tsx
+│   │   │   ├── MedicalInfoGatePage.tsx
+│   │   │   ├── MedicalInfoViewPage.tsx
+│   │   │   ├── ScanStatusPage.tsx
+│   │   │   └── ScanNotFoundPage.tsx
+│   │   ├── admin/
+│   │   │   ├── AdminDashboardPage.tsx
+│   │   │   ├── AdminScansPage.tsx
+│   │   │   ├── AdminScanDetailPage.tsx
+│   │   │   ├── AdminFlaggedScansPage.tsx
+│   │   │   ├── AdminOwnersPage.tsx
+│   │   │   ├── AdminOwnerDetailPage.tsx
+│   │   │   ├── AdminVehiclesPage.tsx
+│   │   │   ├── AdminAlertFailuresPage.tsx
+│   │   │   ├── AdminDeadLetterPage.tsx
+│   │   │   ├── AdminAbuseReportsPage.tsx
+│   │   │   └── AdminAuditLogPage.tsx
+│   │   └── errors/
+│   │       ├── NotFoundPage.tsx
+│   │       ├── ForbiddenPage.tsx
+│   │       ├── ServerErrorPage.tsx
+│   │       └── OfflinePage.tsx
+│   ├── components/
+│   │   ├── ui/                 (shadcn/ui primitives — 40+ files)
+│   │   ├── layout/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── MobileNav.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Breadcrumbs.tsx
+│   │   │   └── CommandPalette.tsx
+│   │   ├── marketing/
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── FeatureGrid.tsx
+│   │   │   ├── HowItWorksSteps.tsx
+│   │   │   ├── PricingTable.tsx
+│   │   │   ├── TestimonialCarousel.tsx
+│   │   │   ├── TrustBadges.tsx
+│   │   │   ├── StatsCounter.tsx
+│   │   │   └── CTABanner.tsx
+│   │   ├── auth/
+│   │   │   ├── PhoneInputForm.tsx
+│   │   │   ├── OtpInputBoxes.tsx
+│   │   │   ├── OtpResendTimer.tsx
+│   │   │   └── TurnstileWidget.tsx
+│   │   ├── vehicles/
+│   │   │   ├── VehicleCard.tsx
+│   │   │   ├── VehicleForm.tsx
+│   │   │   ├── VehicleStatusBadge.tsx
+│   │   │   ├── QRCodeDisplay.tsx
+│   │   │   ├── QRCodeDownloadButton.tsx
+│   │   │   └── RenewalCountdown.tsx
+│   │   ├── contacts/
+│   │   │   ├── ContactCard.tsx
+│   │   │   ├── ContactForm.tsx
+│   │   │   ├── ContactPriorityList.tsx
+│   │   │   └── ContactLimitBanner.tsx
+│   │   ├── medical/
+│   │   │   ├── MedicalInfoForm.tsx
+│   │   │   ├── BloodGroupSelect.tsx
+│   │   │   ├── AllergyTagInput.tsx
+│   │   │   ├── MedicationList.tsx
+│   │   │   └── ConsentCheckbox.tsx
+│   │   ├── scans/
+│   │   │   ├── ScanTimelineItem.tsx
+│   │   │   ├── ScanResultBadge.tsx
+│   │   │   ├── ScanMapPreview.tsx
+│   │   │   ├── CameraCapture.tsx
+│   │   │   ├── LocationCaptureCard.tsx
+│   │   │   └── DispatchProgress.tsx
+│   │   ├── payments/
+│   │   │   ├── PlanCard.tsx
+│   │   │   ├── InvoiceTable.tsx
+│   │   │   ├── RazorpayCheckoutButton.tsx
+│   │   │   └── RefundRequestDialog.tsx
+│   │   ├── shared/
+│   │       ├── LoadingSpinner.tsx
+│   │       ├── PageHeader.tsx
+│   │       ├── EmptyState.tsx
+│   │       ├── ErrorBoundary.tsx
+│   │       ├── ConfirmDialog.tsx
+│   │       ├── CopyToClipboardButton.tsx
+│   │       ├── AnimatedCounter.tsx
+│   │       ├── ToastProvider.tsx
+│   │       └── SkeletonBlock.tsx
+│   ├── features/
+│   │   ├── auth/          (auth.api.ts · auth.hooks.ts · auth.schema.ts · auth.types.ts · auth.store.ts)
+│   │   ├── owners/        (owners.api.ts · owners.hooks.ts · owners.types.ts)
+│   │   ├── vehicles/      (vehicles.api.ts · vehicles.hooks.ts · vehicles.schema.ts · vehicles.types.ts)
+│   │   ├── contacts/      (contacts.api.ts · contacts.hooks.ts · contacts.schema.ts · contacts.types.ts)
+│   │   ├── medical/       (medical.api.ts · medical.hooks.ts · medical.schema.ts · medical.types.ts)
+│   │   ├── scans/         (scans.api.ts · scans.hooks.ts · scans.schema.ts · scans.types.ts)
+│   │   ├── payments/      (payments.api.ts · payments.hooks.ts · payments.types.ts)
+│   │   └── admin/         (admin.api.ts · admin.hooks.ts · admin.types.ts)
+│   ├── lib/
+│   │   ├── http/
+│   │   │   ├── apiClient.ts
+│   │   │   ├── interceptors.ts
+│   │   │   └── endpoints.ts
+│   │   ├── query/
+│   │   │   ├── queryClient.ts
+│   │   │   └── queryKeys.ts
+│   │   ├── security/
+│   │   │   ├── tokenManager.ts
+│   │   │   ├── sanitize.ts
+│   │   │   ├── csrf.ts
+│   │   │   ├── contentSecurityPolicy.ts
+│   │   │   ├── rateLimitGuard.ts
+│   │   │   └── secureStorage.ts
+│   │   ├── monitoring/
+│   │   │   ├── sentry.ts
+│   │   │   └── analytics.ts
+│   │   ├── utils/
+│   │   │   ├── cn.ts
+│   │   │   ├── formatters.ts
+│   │   │   ├── validators.ts
+│   │   │   └── geo.ts
+│   │   └── constants.ts
+│   ├── store/
+│   │   ├── index.ts
+│   │   ├── authStore.ts
+│   │   ├── uiStore.ts
+│   │   └── notificationStore.ts
+│   ├── hooks/
+│   │   ├── useAuth.ts
+│   │   ├── useMediaQuery.ts
+│   │   ├── useGeolocation.ts
+│   │   ├── useCamera.ts
+│   │   ├── useDebounce.ts
+│   │   ├── useIdleTimeout.ts
+│   │   ├── useClipboard.ts
+│   │   └── useOnlineStatus.ts
+│   ├── types/
+│   │   ├── api.d.ts
+│   │   ├── models.d.ts
+│   │   └── global.d.ts
+│   ├── config/
+│   │   ├── env.ts
+│   │   ├── site.config.ts
+│   │   └── theme.config.ts
+│   ├── styles/
+│   │   ├── globals.css
+│   │   └── fonts.css
+│   ├── i18n/
+│   │   ├── en.json
+│   │   └── hi.json
+│   └── assets/
+│       ├── logo.svg
+│       └── illustrations/
+├── tests/
+│   ├── setup.ts
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+├── .storybook/
+│   ├── main.ts
+│   └── preview.tsx
+├── .husky/
+│   └── pre-commit
+├── .github/workflows/
+│   ├── ci.yml
+│   └── deploy.yml
+├── .env.example
+├── .eslintrc.cjs
+├── .prettierrc
+├── components.json
+├── tailwind.config.ts
+├── postcss.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+├── index.html
+├── package.json
+├── Dockerfile
+├── nginx.conf
+└── README.md
+```
