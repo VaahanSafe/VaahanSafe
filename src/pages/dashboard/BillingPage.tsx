@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { db, type Vehicle } from '@/services/db';
 import { apiClient } from '@/lib/http/apiClient';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
@@ -11,6 +11,8 @@ import {
   Calendar03Icon,
   HelpCircleIcon
 } from '@hugeicons/core-free-icons';
+
+export type InvoiceStatus = 'paid' | 'pending' | 'failed' | 'refunded';
 
 // Import our payments component library
 import { PlanCard } from '@/components/payments/PlanCard';
@@ -85,7 +87,7 @@ import { usePaymentHistory, useRequestRefund } from '@/features/payments/payment
 
 export default function BillingPage() {
   const queryClient = useQueryClient();
-  const { data: vehicleList, isLoading: loadingVehicles } = useOwnerVehicles();
+  const { data: vehicleList } = useOwnerVehicles();
   const { data: rawHistory, isLoading: loading } = usePaymentHistory();
   const requestRefundMutation = useRequestRefund();
 
@@ -445,7 +447,7 @@ export default function BillingPage() {
         
         <CardContent className="p-0">
           <InvoiceTable
-            data={invoices}
+            data={paginatedInvoices}
             loading={loading}
             page={page}
             pageSize={pageSize}

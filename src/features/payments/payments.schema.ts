@@ -10,5 +10,5 @@ export const refundRequestSchema = z.object({
   reason: z.string().min(10, 'Please provide a detailed reason (at least 10 characters)').max(500),
 });
 
-export type CreateOrderFormValues = z.infer<typeof createOrderSchema>;
+export type CreateOrderFormValues = z.infer<typeof paymentOrderSchema>;
 export type RefundRequestFormValues = z.infer<typeof refundRequestSchema>;

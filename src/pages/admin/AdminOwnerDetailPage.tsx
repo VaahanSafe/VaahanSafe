@@ -21,7 +21,7 @@ import { toast } from 'sonner';
 export default function AdminOwnerDetailPage() {
   const { ownerId } = useParams<{ ownerId: string }>();
   const navigate = useNavigate();
-  const { owner, isLoading, error, refetch } = useAdminOwnerDetail(ownerId || '');
+  const { data: owner, isLoading, error, refetch } = useAdminOwnerDetail(ownerId || '');
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -58,7 +58,7 @@ export default function AdminOwnerDetailPage() {
         <HugeiconsIcon icon={AlertCircleIcon} className="size-12 text-red-500" />
         <h3 className="text-lg font-bold text-zinc-900 dark:text-white font-sans">Owner Profile Unavailable</h3>
         <p className="text-xs text-zinc-500 max-w-sm">
-          {error || `The requested subscriber ID "${ownerId}" does not exist in our active database.`}
+          {error instanceof Error ? error.message : String(error || `The requested subscriber ID "${ownerId}" does not exist in our active database.`)}
         </p>
         <Button onClick={() => navigate('/admin/owners')} variant="outline" className="text-xs h-9">
           Return to Registry
@@ -210,7 +210,7 @@ export default function AdminOwnerDetailPage() {
               <div className="flex flex-col gap-1.5 pt-1.5 border-t border-zinc-100 dark:border-zinc-800/40">
                 <span className="text-zinc-500 dark:text-zinc-400">Authorized Notification Scope</span>
                 <div className="flex flex-wrap gap-1.5 pl-0.5 mt-1">
-                  {owner.dpdpConsentScope.map((scope, idx) => (
+                  {owner.dpdpConsentScope.map((scope: any, idx: number) => (
                     <span key={idx} className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-500 font-mono">
                       {scope}
                     </span>
@@ -248,7 +248,7 @@ export default function AdminOwnerDetailPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80 font-mono">
-                    {owner.vehicles.map((veh, idx) => (
+                    {owner.vehicles.map((veh: any, idx: number) => (
                       <tr key={idx} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40 transition-colors">
                         <td className="p-2.5 font-bold text-brand">{veh.qrCode}</td>
                         <td className="p-2.5 text-zinc-800 dark:text-zinc-200">{veh.plate}</td>
@@ -281,7 +281,7 @@ export default function AdminOwnerDetailPage() {
             </div>
 
             <div className="space-y-3.5">
-              {owner.auditLogs.map((log) => (
+              {owner.auditLogs.map((log: any) => (
                 <div key={log.id} className="relative flex gap-3 text-xs">
                   
                   {/* Icon Indicator */}

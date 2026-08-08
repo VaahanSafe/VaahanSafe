@@ -8,7 +8,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { cn } from '@/lib/utils';
 import type { PageHeaderProps } from '@/types/shared';
 
 export const PageHeader: React.FC<PageHeaderProps> = React.memo(({

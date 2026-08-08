@@ -49,6 +49,12 @@ export interface AbuseReport {
   severity: 'High' | 'Medium' | 'Critical';
   status: 'Open' | 'Mitigated' | 'Dismissed';
   reportedAt: string;
+  overallRiskLevel?: string;
+  generatedAt?: string;
+  rateLimitHitsCount?: number;
+  flaggedThreatsCount?: number;
+  scanPatterns?: string;
+  recommendedActions?: string;
 }
 
 export interface DeadLetterRow {
@@ -59,6 +65,12 @@ export interface DeadLetterRow {
   retryCount: number;
   maxRetries: number;
   failedAt: string;
+  taskId?: string;
+  taskName?: string;
+  args?: string;
+  status?: string;
+  retries?: number;
+  errorMessage?: string;
 }
 
 export interface AlertFailureItem {
@@ -71,7 +83,10 @@ export interface AlertFailureItem {
   failureCode: string;
   errorMessage: string;
   attemptTime: string;
-  status: 'FAILED' | 'RETRIED' | 'PERMANENT_FAIL';
+  status: 'FAILED' | 'RETRIED' | 'PERMANENT_FAIL' | 'Resolved' | 'Retried' | 'Pending Action';
+  ownerName?: string;
+  phone?: string;
+  timestamp?: string;
 }
 
 export type AdminAbuseReport = AbuseReport;

@@ -1,4 +1,4 @@
-import React, { Component, type ErrorInfo } from 'react';
+import { Component, type ErrorInfo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { HugeiconsIcon } from '@hugeicons/react';

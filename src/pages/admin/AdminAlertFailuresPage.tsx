@@ -157,7 +157,7 @@ export default function AdminAlertFailuresPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
-                  {failures.map((fail) => (
+                  {failures.map((fail: AdminAlertFailureItem) => (
                     <tr key={fail.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40 transition-colors">
                       <td className="p-3 font-mono text-zinc-500">{fail.id}</td>
                       <td className="p-3 font-bold text-zinc-900 dark:text-white">{fail.ownerName}</td>

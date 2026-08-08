@@ -73,7 +73,8 @@ const allIncidents = Array.from({ length: 50 }, (_, i) => {
 });
 
 export default function AdminDashboardPage() {
-  const { metrics, isLoading, refetch } = useAdminMetrics();
+  const { data: rawMetrics, isLoading, refetch } = useAdminMetrics();
+  const metrics: any = rawMetrics;
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);

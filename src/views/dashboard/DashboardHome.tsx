@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { db, type Vehicle, type ScanLog } from '@/services/db';
@@ -8,26 +8,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { EmptyState } from '@/components/svg';
 import { useDashboardStats } from '@/features/dashboard/dashboard.hooks';
 import { useOwnerNotifications, useOwnerVehicles } from '@/features/owners';
 import { StatCard } from '@/components/charts/StatCard';
 import { ScansLineChart } from '@/components/charts/ScansLineChart';
 import { DeliveryRateBarChart } from '@/components/charts/DeliveryRateBarChart';
 import { HeatmapCalendar } from '@/components/charts/HeatmapCalendar';
-import type { ScanMetric, DeliveryMetric, HeatmapDay } from '@/types/charts';
-import { useMemo } from 'react';
+import type { ScanMetric, HeatmapDay } from '@/types/charts';
 import { 
   Car01Icon, 
   Shield01Icon, 
   AlertCircleIcon, 
   Alert01Icon, 
-  Camera01Icon,
   Cancel01Icon,
   ArrowRight01Icon,
-  Delete02Icon,
   PlusSignIcon,
   Notification03Icon,
   SmartPhone01Icon,
@@ -143,7 +138,7 @@ export default function DashboardHome({ ownerPhone, onLogout, onRegisterNew }: D
   const navigate = useNavigate();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
-  const [logs, setLogs] = useState<ScanLog[]>([]);
+  const [_logs, setLogs] = useState<ScanLog[]>([]);
   
   const { owner } = useAuthStore();
   const displayName = owner?.full_name || owner?.name || ownerPhone || 'Owner';
@@ -334,22 +329,6 @@ export default function DashboardHome({ ownerPhone, onLogout, onRegisterNew }: D
     return () => window.removeEventListener('vs_new_log', handleNewLog);
   }, [selectedVehicle, refetch]);
 
-  const togglePauseAlerts = (vId: string) => {
-    if (!selectedVehicle) return;
-    const nextState = !selectedVehicle.activeAlertsPaused;
-    const updated = db.updateVehicle(vId, { activeAlertsPaused: nextState });
-    setSelectedVehicle(updated);
-    setVehicles(vehicles.map(v => v.id === vId ? updated : v));
-    
-    // Add log event
-    db.addLog({
-      vehicleId: vId,
-      type: 'issue',
-      details: `Alerts notifications globally ${nextState ? 'PAUSED' : 'RESUMED'} by the owner.`
-    });
-    refetch(); // Refresh cache stats
-  };
-
   const handleEditSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedVehicle) return;
@@ -372,64 +351,6 @@ export default function DashboardHome({ ownerPhone, onLogout, onRegisterNew }: D
     setShowEditModal(false);
     alert('Vehicle profile updated successfully!');
     refetch();
-  };
-
-  const openEditModal = () => {
-    if (!selectedVehicle) return;
-    setEditBlood(selectedVehicle.bloodGroup);
-    setEditAllergies(selectedVehicle.allergies);
-    setEditNotes(selectedVehicle.medicalNotes);
-    setEditContacts(selectedVehicle.emergencyContacts.join('\n'));
-    setShowEditModal(true);
-  };
-
-  const handleDeleteAccount = () => {
-    const confirmDelete = window.confirm(
-      'DPDP RIGHT TO ERASURE:\nAre you sure you want to permanently erase your profile? This will delete all registered vehicles, emergency contacts, and scan logs from our servers.'
-    );
-    
-    if (confirmDelete) {
-      const allVehicles = db.getVehicles();
-      const remaining = allVehicles.filter(v => v.ownerPhone !== ownerPhone);
-      localStorage.setItem('vs_vehicles', JSON.stringify(remaining));
-      
-      const allLogs = db.getLogs();
-      const vehicleIdsToRemove = allVehicles.filter(v => v.ownerPhone === ownerPhone).map(v => v.id);
-      const cleanLogs = allLogs.filter(l => !vehicleIdsToRemove.includes(l.vehicleId));
-      localStorage.setItem('vs_logs', JSON.stringify(cleanLogs));
-      
-      alert('Erase process complete. All stored records have been purged.');
-      onLogout();
-    }
-  };
-
-  const handleDeleteVehicle = async (id: string) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to permanently delete this vehicle? This will remove all local data.'
-    );
-    if (!confirmDelete) return;
-
-    const allVehicles = db.getVehicles();
-    const updated = allVehicles.filter(v => v.id !== id);
-    localStorage.setItem('vs_vehicles', JSON.stringify(updated));
-
-    if (!id.startsWith('vehicle-')) {
-      try {
-        await apiClient.delete(`/vehicles/${id}`);
-      } catch (err) {
-        console.error('Failed to delete vehicle on backend:', err);
-      }
-    }
-
-    toast.success('Vehicle successfully removed!');
-    
-    queryClient.invalidateQueries({ queryKey: ['vehicles'] });
-    queryClient.invalidateQueries({ queryKey: ['owner-profile'] });
-    queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
-    
-    const cleanList = updated.filter(v => v.ownerPhone === ownerPhone);
-    setVehicles(cleanList);
-    setSelectedVehicle(cleanList.length > 0 ? cleanList[0] : null);
   };
 
   const getGreeting = () => {

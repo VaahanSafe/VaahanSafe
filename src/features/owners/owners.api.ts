@@ -18,7 +18,7 @@ export async function getProfile(): Promise<OwnerProfileOut> {
   const response = await apiClient.get<OwnerProfileOut>(ENDPOINTS.OWNERS.PROFILE);
   const data = response.data;
   if (data?.owner) {
-    useAuthStore.getState().setOwner(data.owner);
+    useAuthStore.getState().setOwner({ ...data.owner, role: (data.owner.role as any) || 'owner' });
     useFeatureAuthStore.getState().setOwner(data.owner);
   }
   return data;
@@ -29,7 +29,7 @@ export async function updateProfile(payload: UpdateOwnerProfileIn): Promise<Owne
   const response = await apiClient.patch<OwnerOut>(ENDPOINTS.OWNERS.PROFILE, validated);
   const updated = response.data;
   if (updated) {
-    useAuthStore.getState().setOwner(updated);
+    useAuthStore.getState().setOwner({ ...updated, role: (updated.role as any) || 'owner' });
     useFeatureAuthStore.getState().setOwner(updated);
   }
   return updated;

@@ -15,12 +15,12 @@ import {
 import vaahanLogo from '@/assets/logo.svg';
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(uiStore.getIsSidebarCollapsed());
+  const [collapsed, setCollapsed] = useState(uiStore.isSidebarCollapsed());
   const { phone } = useAuthStore();
 
   useEffect(() => {
     const unsubscribe = uiStore.subscribe(() => {
-      setCollapsed(uiStore.getIsSidebarCollapsed());
+      setCollapsed(uiStore.isSidebarCollapsed());
     });
     return () => {
       unsubscribe();

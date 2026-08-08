@@ -5,7 +5,7 @@
 import type { EmergencyContactOut } from '../contacts/contacts.types';
 import type { MedicalInfoOut } from '../medical/medical.types';
 
-export type SubscriptionStatus = 'active' | 'suspended' | 'expired' | 'pending';
+export type SubscriptionStatus = 'Active' | 'Suspended' | 'Expired' | 'Pending' | 'active' | 'suspended' | 'expired' | 'pending';
 
 export interface VehicleOut {
   id: string;

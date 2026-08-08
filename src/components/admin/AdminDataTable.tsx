@@ -19,7 +19,6 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table';
-import { Checkbox } from '@/components/ui/checkbox';
 import { TablePagination } from './TablePagination';
 import { TableToolbar } from './TableToolbar';
 import { TableLoadingSkeleton } from './TableLoadingSkeleton';
@@ -28,10 +27,13 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Sorting01Icon } from '@hugeicons/core-free-icons';
 import { cn } from '@/lib/utils';
 
+export type { ColumnDef, PaginationState } from '@tanstack/react-table';
+
 interface AdminDataTableProps<TData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   loading?: boolean;
+  isLoading?: boolean;
   error?: boolean;
   onRetry?: () => void;
   pagination?: PaginationState;
@@ -43,6 +45,9 @@ interface AdminDataTableProps<TData> {
   toolbar?: React.ReactNode;
   emptyMessage?: string;
   tableKey?: string; // Cache identifier for columns visibility
+  keyExtractor?: (item: TData) => string;
+  mobileCard?: (item: TData) => React.ReactNode;
+  bulkActions?: React.ReactNode;
 }
 
 export function AdminDataTable<TData>({
@@ -57,7 +62,7 @@ export function AdminDataTable<TData>({
   onSortingChange,
   rowSelection,
   onRowSelectionChange,
-  toolbar,
+  toolbar: _toolbar,
   emptyMessage,
   tableKey = 'admin_table'
 }: AdminDataTableProps<TData>) {

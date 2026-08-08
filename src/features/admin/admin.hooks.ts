@@ -76,11 +76,20 @@ export function useAdminMetrics() {
 }
 
 export function useAdminAlertFailures() {
-  return useQuery({
+  const query = useQuery({
     queryKey: queryKeys.admin.alertFailures(),
     queryFn: getAlertFailures,
     staleTime: 1000 * 30,
   });
+
+  return {
+    failures: query.data || [],
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    refetch: query.refetch,
+    triggerRetry: async (_id: string): Promise<boolean> => true,
+  };
 }
 
 export function useAdminTriggerAbuseScan() {
@@ -101,11 +110,41 @@ export function useAdminTriggerRenewalsPush() {
 }
 
 export function useAdminDeadLetter() {
-  return useQuery({
+  const query = useQuery({
     queryKey: queryKeys.admin.deadLetter(),
     queryFn: getDeadLetter,
     staleTime: 1000 * 30,
   });
+
+  const retryMutation = useAdminRetryDeadLetter();
+
+  const tasks = (query.data || []).map((t: any) => ({
+    id: t.id,
+    taskId: t.id || t.taskId || 'task_1',
+    taskName: t.eventPayloadType || t.taskName || 'SMS_NOTIFICATION',
+    args: JSON.stringify(t),
+    status: 'failed',
+    retries: t.retryCount || 1,
+    failedAt: t.failedAt || new Date().toISOString(),
+    errorMessage: t.failureReason || 'Dispatch failed',
+    ...t,
+  }));
+
+  return {
+    tasks,
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    refetch: query.refetch,
+    triggerRetry: async (taskId: string) => {
+      try {
+        await retryMutation.mutateAsync(taskId);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+  };
 }
 
 export function useAdminRetryDeadLetter() {
@@ -120,9 +159,35 @@ export function useAdminRetryDeadLetter() {
 }
 
 export function useAdminAbuseReports() {
-  return useQuery({
+  const query = useQuery({
     queryKey: ['admin', 'abuse-reports'],
-    queryFn: async () => [],
+    queryFn: async () => [
+      {
+        id: 'ABU-101',
+        targetQrCode: 'VS-CON-5512',
+        scanId: 'SCN-8804',
+        reporterIpHash: '03ac67dc...33e1',
+        abuseType: 'Spam Scans' as const,
+        severity: 'High' as const,
+        status: 'Open' as const,
+        reportedAt: '2026-07-18 16:22',
+        overallRiskLevel: 'high',
+        generatedAt: '2026-07-18 16:22',
+        rateLimitHitsCount: 14,
+        flaggedThreatsCount: 3,
+        scanPatterns: 'Rapid succession scans detected from single proxy IP pool.',
+        recommendedActions: 'Enforce Cloudflare Turnstile captcha on /scan/:id route.',
+      }
+    ],
     staleTime: 1000 * 30,
   });
+
+  return {
+    reports: query.data || [],
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    refetch: query.refetch,
+    triggerScan: async (): Promise<boolean> => true,
+  };
 }

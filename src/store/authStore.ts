@@ -6,7 +6,7 @@ export interface OwnerProfile {
   phone: string;
   name?: string;
   full_name?: string;
-  email?: string;
+  email?: string | null;
   role: 'owner' | 'operator' | 'admin';
   tier?: string;
   createdAt?: string;
@@ -22,6 +22,8 @@ export interface AuthState {
   accessToken: string | null;
   owner: OwnerProfile | null;
   isAuthenticated: boolean;
+  phone?: string;
+  role?: 'owner' | 'operator' | 'admin';
   
   // Actions
   setAccessToken: (token: string | null) => void;
@@ -42,6 +44,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,
   owner: null,
   isAuthenticated: false,
+  phone: undefined,
+  role: undefined,
 
   setAccessToken: (token: string | null) => {
     setManagerToken(token);
@@ -56,29 +60,39 @@ export const useAuthStore = create<AuthState>((set) => ({
     set(() => ({
       accessToken: null,
       isAuthenticated: false,
+      owner: null,
+      phone: undefined,
+      role: undefined,
     }));
   },
 
   setOwner: (owner: OwnerProfile | null) =>
     set(() => ({
       owner,
+      phone: owner?.phone,
+      role: owner?.role,
     })),
 
   clearOwner: () =>
     set(() => ({
       owner: null,
+      phone: undefined,
+      role: undefined,
     })),
 
   login: (phone: string, token: string, role: 'owner' | 'operator' | 'admin' = 'owner', _refreshToken?: string, owner?: OwnerProfile | null) => {
     setManagerToken(token);
+    const resolvedOwner = owner || {
+      id: `owner_${Date.now()}`,
+      phone,
+      role,
+    };
     set(() => ({
       accessToken: token,
       isAuthenticated: true,
-      owner: owner || {
-        id: owner?.id || `owner_${Date.now()}`,
-        phone,
-        role,
-      },
+      owner: resolvedOwner,
+      phone: resolvedOwner.phone,
+      role: resolvedOwner.role,
     }));
   },
 
@@ -88,6 +102,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       accessToken: null,
       owner: null,
       isAuthenticated: false,
+      phone: undefined,
+      role: undefined,
     }));
     usePersistedStore.getState().logoutStore();
   },

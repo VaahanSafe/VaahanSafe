@@ -163,7 +163,7 @@ export const AdminFilterBar: React.FC<AdminFilterBarProps> = React.memo(({
 
         {/* Status / Category Select Dropdown */}
         <div className="w-full sm:w-40 text-left">
-          <Select value={activeStatus} onValueChange={handleStatusChange}>
+          <Select value={activeStatus} onValueChange={(val) => handleStatusChange(val || 'all')}>
             <SelectTrigger className="w-full h-8 sm:h-9.5 text-[11px] sm:text-xs rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#070708] text-zinc-900 dark:text-white px-3 focus-visible:ring-primary">
               <SelectValue placeholder={isLegacy ? "All Types" : "All Statuses"} />
             </SelectTrigger>
@@ -191,7 +191,7 @@ export const AdminFilterBar: React.FC<AdminFilterBarProps> = React.memo(({
         {/* Outcomes Select Dropdown (Legacy Only) */}
         {isLegacy && (
           <div className="w-full sm:w-40 text-left">
-            <Select value={activeResult} onValueChange={handleResultChange}>
+            <Select value={activeResult} onValueChange={(val) => handleResultChange(val || 'all')}>
               <SelectTrigger className="w-full h-8 sm:h-9.5 text-[11px] sm:text-xs rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-[#070708] text-zinc-900 dark:text-white px-3 focus-visible:ring-primary">
                 <SelectValue placeholder="All Outcomes" />
               </SelectTrigger>

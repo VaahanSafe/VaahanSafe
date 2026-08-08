@@ -1,14 +1,13 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 import { Spinner } from '@/components/ui/spinner';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { CheckIcon, Rocket01Icon, PackageIcon, HelpCircleIcon } from '@hugeicons/core-free-icons';
-import type { SubscriptionPlan, PlanCardProps } from '@/types/payments';
-import { formatCurrency, planBadgeLabel } from '@/lib/payments';
+import { CheckIcon, Rocket01Icon, HelpCircleIcon } from '@hugeicons/core-free-icons';
+import type { PlanCardProps } from '@/types/payments';
 import { cn } from '@/lib/utils';
 
 export const PlanCard: React.FC<PlanCardProps & { billingCycle?: 'monthly' | 'yearly'; hideCTA?: boolean }> = React.memo(({
@@ -22,7 +21,6 @@ export const PlanCard: React.FC<PlanCardProps & { billingCycle?: 'monthly' | 'ye
 }) => {
   const isYearly = billingCycle === 'yearly';
   const price = isYearly ? plan.priceYearly : plan.priceMonthly;
-  const badgeText = planBadgeLabel(plan);
   const isRecommended = plan.popular;
 
   // Highlight classes based on selection/recommended status

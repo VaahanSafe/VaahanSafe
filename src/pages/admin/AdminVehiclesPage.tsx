@@ -101,7 +101,13 @@ export default function AdminVehiclesPage() {
 
   const openOverrideModal = (vehicle: AdminVehicleItem) => {
     setSelectedVehicle(vehicle);
-    setNewStatus(vehicle.status);
+    setNewStatus(
+      vehicle.status === 'Suspended' || (vehicle.status as string) === 'suspended'
+        ? 'Suspended'
+        : vehicle.status === 'Expired' || (vehicle.status as string) === 'expired'
+        ? 'Expired'
+        : 'Active'
+    );
     setOverrideReason('');
     setIsModalOpen(true);
   };

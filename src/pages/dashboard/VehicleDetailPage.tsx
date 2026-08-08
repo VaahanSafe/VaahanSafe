@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation, Link, Outlet } from 'react-router-dom';
-import { db, type Vehicle } from '@/services/db';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { HugeiconsIcon } from '@hugeicons/react';

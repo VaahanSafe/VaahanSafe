@@ -11,7 +11,6 @@ import {
   Cancel01Icon,
   SmartPhone01Icon,
   LockIcon,
-  HelpCircleIcon,
   Shield01Icon,
   LogoutIcon,
   Sun01Icon,
@@ -46,11 +45,10 @@ import {
   clearAllNotifications,
   requestDeletion
 } from '@/features/owners/owners.api';
-import { useOwnerVehicles, useUpdateProfile } from '@/features/owners/owners.hooks';
+import { useOwnerVehicles } from '@/features/owners/owners.hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query/queryKeys';
 import { renewSubscription } from '@/features/vehicles/vehicles.api';
-import { env } from '@/config/env';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -95,7 +93,7 @@ const maskPhoneNumberVal = (phoneNum: string) => {
 export default function SettingsModal({ isOpen, onClose, defaultTab = 'general' }: SettingsModalProps) {
   const [activeTab, setActiveTab] = useState<'general' | 'security' | 'billing' | 'notifications' | 'privacy'>(defaultTab);
   const { owner } = useAuthStore();
-  const phone = owner?.phone_number || '';
+  const phone = owner?.phone || '';
   const queryClient = useQueryClient();
   const { theme, setTheme } = useUITheme();
 
@@ -112,7 +110,7 @@ export default function SettingsModal({ isOpen, onClose, defaultTab = 'general' 
   // Tab 2: Security & Alert preferences
   const [loginAlerts, setLoginAlerts] = useState(owner?.whatsapp_login_alerts ?? true);
   const [stickerAlerts, setStickerAlerts] = useState(owner?.sticker_scan_alerts ?? true);
-  const [savingPrefs, setSavingPrefs] = useState(false);
+  const [_savingPrefs, setSavingPrefs] = useState(false);
   const [sessions, setSessions] = useState<any[]>([]);
   const [sessionsLoading, setSessionsLoading] = useState(false);
 
@@ -136,7 +134,7 @@ export default function SettingsModal({ isOpen, onClose, defaultTab = 'general' 
   const [selectedTier, setSelectedTier] = useState<'basic' | 'premium'>('premium');
   const [showMockCheckout, setShowMockCheckout] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [mockOrderId, setMockOrderId] = useState('');
+  const [mockOrderId, _setMockOrderId] = useState('');
   const [showTerminateConfirm, setShowTerminateConfirm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 

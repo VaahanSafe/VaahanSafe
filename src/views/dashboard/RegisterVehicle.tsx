@@ -8,9 +8,7 @@ import { PlanCard } from '@/components/payments/PlanCard'
 import type { SubscriptionPlan } from '@/types/payments'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -18,7 +16,6 @@ import QRCode from 'react-qr-code'
 import { 
   AlertCircleIcon,
   CheckmarkCircle02Icon,
-  HealtcareIcon,
   LockIcon,
   QrCodeIcon,
   ArrowRight01Icon
@@ -94,22 +91,22 @@ export default function RegisterVehicle({ ownerPhone, onRegisterSuccess, onCance
   const [name, setName] = useState(() => {
     return localStorage.getItem(`vs_owner_name_${ownerPhone}`) || '';
   });
-  const [blood, setBlood] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [notes, setNotes] = useState('');
+  const [blood, _setBlood] = useState('');
+  const [allergies, _setAllergies] = useState('');
+  const [notes, _setNotes] = useState('');
   
   // Emergency contacts list (dynamic up to 5)
-  const [contacts, setContacts] = useState<string[]>(['']);
+  const [contacts, _setContacts] = useState<string[]>(['']);
   
   // Consent checkboxes
   const [generalConsent, setGeneralConsent] = useState(false);
-  const [medicalConsent, setMedicalConsent] = useState(false);
+  const [medicalConsent, _setMedicalConsent] = useState(false);
 
   const [tier, setTier] = useState<'Basic' | 'Shield' | 'Family Pro'>('Shield');
   const [loading, setLoading] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [showMockRazorpay, setShowMockRazorpay] = useState(false);
-  const [mockOrderId, setMockOrderId] = useState('');
+  const [mockOrderId, _setMockOrderId] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [registeredVehicle, setRegisteredVehicle] = useState<any>(null);
 
@@ -118,22 +115,6 @@ export default function RegisterVehicle({ ownerPhone, onRegisterSuccess, onCance
     { id: 2, label: 'Choose Plan' },
     { id: 3, label: 'Secure Payment' }
   ];
-
-  const addContactField = () => {
-    if (contacts.length >= 5) return;
-    setContacts([...contacts, '']);
-  };
-
-  const removeContactField = (index: number) => {
-    if (contacts.length <= 1) return;
-    setContacts(contacts.filter((_, i) => i !== index));
-  };
-
-  const handleContactChange = (index: number, val: string) => {
-    const updated = [...contacts];
-    updated[index] = val;
-    setContacts(updated);
-  };
 
   const cleanPlate = plate.replace(/[-\s]/g, '').toUpperCase();
   const isValidPlate = VEHICLE_NUMBER_REGEX.test(cleanPlate);
@@ -283,7 +264,7 @@ export default function RegisterVehicle({ ownerPhone, onRegisterSuccess, onCance
       try {
         await upsertMedicalInfo(registeredVehicle.id, {
           blood_group: medicalConsent ? blood || 'unknown' : 'unknown',
-          allergies: medicalConsent && allergies ? allergies.split(',').map(a => a.trim()).filter(a => a !== '') : [],
+          allergies: medicalConsent && allergies ? allergies.split(',').map((a: string) => a.trim()).filter((a: string) => a !== '') : [],
           medical_notes: medicalConsent ? notes || '' : '',
           organ_donor: false,
           emergency_medication: [],

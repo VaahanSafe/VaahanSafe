@@ -27,7 +27,7 @@ export default function AdminDeadLetterPage() {
   };
 
   const handleRetry = async (task: AdminDeadLetterItem) => {
-    const success = await triggerRetry(task.taskId);
+    const success = await triggerRetry(task.taskId || task.id || '');
     if (success) {
       securityLogger.log(
         `Retried Celery Dead Letter task ${task.taskId}`,
@@ -163,7 +163,7 @@ export default function AdminDeadLetterPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
-                  {tasks.map((task) => (
+                  {tasks.map((task: AdminDeadLetterItem) => (
                     <tr key={task.taskId} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40 transition-colors">
                       <td className="p-3 font-mono text-zinc-400 select-all truncate max-w-[120px]">{task.taskId}</td>
                       <td className="p-3 font-bold text-zinc-900 dark:text-white font-mono text-[11px]">{task.taskName}</td>

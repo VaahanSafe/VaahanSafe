@@ -5,7 +5,7 @@ import { ChartTooltip } from './ChartTooltip';
 import { ChartLegend } from './ChartLegend';
 import { ChartSkeleton } from './ChartSkeleton';
 import { ChartEmptyState } from './ChartEmptyState';
-import { formatXAxis, formatYAxis, formatNumber } from '@/lib/charts';
+import { formatXAxis, formatYAxis } from '@/lib/charts';
 import type { ScansLineChartProps } from '@/types/charts';
 
 export const ScansLineChart: React.FC<ScansLineChartProps> = React.memo(({

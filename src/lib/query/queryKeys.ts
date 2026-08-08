@@ -45,7 +45,7 @@ export const queryKeys = {
 
   payments: {
     all: ['payments'] as const,
-    history: () => ['payments', 'history'] as const,
+    history: (params?: Record<string, unknown>) => ['payments', 'history', params] as const,
     detail: (id: string) => ['payments', 'detail', id] as const,
   },
 

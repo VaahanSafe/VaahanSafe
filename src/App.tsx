@@ -32,7 +32,7 @@ export default function App() {
 
       {/* Idle Timeout Modal */}
       <IdleTimeoutModal 
-        loggedInPhone={loggedInPhone} 
+        loggedInPhone={loggedInPhone || null} 
         onLogout={handleLogout} 
       />
 

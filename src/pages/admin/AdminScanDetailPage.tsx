@@ -21,7 +21,7 @@ import { toast } from 'sonner';
 export default function AdminScanDetailPage() {
   const { scanId } = useParams<{ scanId: string }>();
   const navigate = useNavigate();
-  const { scan, isLoading, error, refetch } = useAdminScanDetail(scanId || '');
+  const { data: scan, isLoading, error, refetch } = useAdminScanDetail(scanId || '');
   const [showRawJson, setShowRawJson] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -202,7 +202,7 @@ export default function AdminScanDetailPage() {
             </CardTitle>
 
             <div className="space-y-4">
-              {scan.dispatches.map((disp, idx) => (
+              {(scan?.dispatches || []).map((disp: any, idx: number) => (
                 <div key={idx} className="relative flex gap-4 text-xs">
                   {/* Pipeline connecting lines */}
                   {idx < scan.dispatches.length - 1 && (

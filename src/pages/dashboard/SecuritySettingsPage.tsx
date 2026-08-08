@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore, authStore } from '@/features/auth/auth.store';
+import { useAuthStore } from '@/features/auth/auth.store';
 import { useUpdateProfile } from '@/features/owners/owners.hooks';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -40,7 +40,7 @@ import { useLogout } from '@/features/auth/auth.hooks';
 
 export default function SecuritySettingsPage() {
   const navigate = useNavigate();
-  const { phone, owner } = useAuthStore();
+  const { owner } = useAuthStore();
   const logoutMutation = useLogout();
   const updateProfileMutation = useUpdateProfile();
 

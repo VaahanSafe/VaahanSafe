@@ -14,7 +14,6 @@ import { Spinner } from '@/components/ui/spinner';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Alert02Icon,
-  Invoice02Icon,
   Clock01Icon,
   ReturnRequestIcon,
 } from '@hugeicons/core-free-icons';

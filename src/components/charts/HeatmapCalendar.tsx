@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 import { ChartSkeleton } from './ChartSkeleton';
@@ -112,7 +112,7 @@ export const HeatmapCalendar: React.FC<HeatmapCalendarProps> = React.memo(({
                     <div key={colIdx} className="flex flex-col gap-0.5 sm:gap-1 flex-1 min-w-0">
                       {week.map((day) => (
                         <Tooltip key={day.date}>
-                          <TooltipTrigger asChild>
+                          <TooltipTrigger>
                             <div
                               role="gridcell"
                               aria-label={`${day.count} scans on ${day.date}`}

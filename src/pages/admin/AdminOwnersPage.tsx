@@ -46,7 +46,7 @@ import {
   Calendar03Icon,
   FilterHorizontalIcon
 } from '@hugeicons/core-free-icons';
-import { useAdminOwners } from '@/features/admin/admin.hooks';
+import { useAdminOwners } from '@/features/owners/owners.hooks';
 import type { AdminOwnerItem } from '@/features/owners/owners.types';
 import { toast } from 'sonner';
 
@@ -310,7 +310,7 @@ export default function AdminOwnersPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/80">
-                  {owners.map((owner) => (
+                  {owners.map((owner: AdminOwnerItem) => (
                     <tr key={owner.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40 transition-colors">
                       <td className="p-3 font-mono">
                         <Link to={`/admin/owners/${owner.id}`} className="font-bold text-brand hover:underline">

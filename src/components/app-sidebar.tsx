@@ -16,7 +16,6 @@ import {
   DashboardCircleIcon, 
   Car01Icon, 
   CreditCardIcon, 
-  Settings01Icon,
   Notification01Icon
 } from "@hugeicons/core-free-icons"
 

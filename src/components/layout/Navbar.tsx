@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuthStore, authStore } from '@/store/authStore';
 import { useUITheme } from '@/store/uiStore';
@@ -44,7 +44,7 @@ interface NavbarProps {
 
 export default function Navbar({ variant = 'app' }: NavbarProps) {
   const { owner } = useAuthStore();
-  const phone = owner?.phone_number || '';
+  const phone = owner?.phone || '';
   const { theme, toggleTheme } = useUITheme();
   const location = useLocation();
   const navigate = useNavigate();

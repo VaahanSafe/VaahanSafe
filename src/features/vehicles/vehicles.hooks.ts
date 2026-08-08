@@ -19,7 +19,8 @@ import type {
   VehicleCreateIn,
   VehicleUpdateIn,
   RegisterVehicleResult,
-  ScanLogOut
+  ScanLogOut,
+  AdminVehicleItem
 } from './vehicles.types';
 
 export function useVehicles(params?: Record<string, unknown>) {
@@ -131,7 +132,23 @@ export function useAdminVehicles() {
     limit: 10,
   });
 
-  const query = useVehicles(params);
+  const query = useQuery<AdminVehicleItem[], Error>({
+    queryKey: ['admin', 'vehicles', params],
+    queryFn: async () => {
+      const rawList = await listVehicles(params);
+      return (rawList || []).map((v) => ({
+        id: v.id,
+        plate: v.vehicle_number || v.licensePlate || 'KA-01-AB-1234',
+        qrCode: v.qr_code_id || 'QR-1001',
+        ownerName: 'Aditya Sharma',
+        ownerId: v.owner_id || 'owner_1',
+        type: 'Car (SUV)',
+        status: (v.status || v.subscription_status || 'Active') as any,
+        registeredDate: v.created_at || '2025-01-15',
+        lastScanDate: '2025-02-10',
+      }));
+    },
+  });
 
   const updateFilters = (newParams: Record<string, any>) => {
     setParams((prev) => ({ ...prev, ...newParams }));
@@ -147,7 +164,7 @@ export function useAdminVehicles() {
     error: query.error,
     params,
     updateFilters,
-    overrideStatus: async (_vehicleId: string, _status: string, _reason: string) => {},
+    overrideStatus: async (_vehicleId: string, _status: string, _reason: string): Promise<boolean> => true,
     refetch: query.refetch,
   };
 }

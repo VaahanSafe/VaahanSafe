@@ -77,9 +77,12 @@ export interface AdminOwnerItem {
   email: string;
   vehiclesCount: number;
   emergencyContactsCount: number;
-  status: 'Active' | 'Suspended' | 'Pending';
+  status: 'Active' | 'Suspended' | 'Pending' | 'Verified' | 'Pending Medical';
   joinedDate: string;
   lastActive: string;
+  lastScanDate?: string;
+  dpdpConsent?: string;
+  city?: string;
 }
 
 export interface AdminOwnersFilterParams {

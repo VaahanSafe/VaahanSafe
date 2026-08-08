@@ -18,12 +18,18 @@ export interface EmergencyScanIn {
   latitude?: number;
   longitude?: number;
   scanner_note?: string;
+  reporter_note?: string;
+  address?: string;
 }
 
 export interface ParkingScanIn {
   photo_base64?: string;
   latitude?: number;
   longitude?: number;
+  reporter_phone?: string;
+  scanner_note?: string;
+  issue_type?: string;
+  notes?: string;
 }
 
 export interface ScanStatusOut {

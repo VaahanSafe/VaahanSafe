@@ -1,22 +1,17 @@
-import DOMPurify from 'dompurify';
-
 /**
- * Strict HTML Sanitizer using DOMPurify
+ * Strict HTML Sanitizer
  * Cleans user-generated content before rendering to eliminate XSS vectors.
  */
 export function sanitizeHtml(dirty: string): string {
   if (!dirty || typeof dirty !== 'string') {
     return '';
   }
-
-  return DOMPurify.sanitize(dirty, {
-    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'span'],
-    ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'class'],
-    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button'],
-    FORBID_ATTR: ['onclick', 'onload', 'onerror', 'onmouseover', 'onmouseout', 'style'],
-    ALLOW_DATA_ATTR: false,
-    ADD_ATTR: ['target'],
-  });
+  return dirty
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /**
@@ -26,9 +21,5 @@ export function sanitizeText(dirty: string): string {
   if (!dirty || typeof dirty !== 'string') {
     return '';
   }
-
-  return DOMPurify.sanitize(dirty, {
-    ALLOWED_TAGS: [],
-    ALLOWED_ATTR: [],
-  });
+  return dirty.replace(/<[^>]*>?/gm, '');
 }

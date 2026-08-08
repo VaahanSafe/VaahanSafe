@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { db, type Vehicle } from '@/services/db';
+import { type Vehicle } from '@/services/db';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { 

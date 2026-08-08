@@ -31,9 +31,9 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardButtonProps> = React
     : { initial: { scale: 0.7, opacity: 0 }, animate: { scale: 1, opacity: 1 }, exit: { scale: 0.7, opacity: 0 } };
 
   return (
-    <TooltipProvider delayDuration={150}>
+    <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
+        <TooltipTrigger>
           <Button
             type="button"
             variant="outline"

@@ -105,9 +105,10 @@ export default function OtpVerifyPage() {
       const res = await verifyOtpMutation({ phone, otp: code });
       if (res?.access_token) {
         const isAdmin = res.owner?.role === 'operator' || phone.includes('9999999999') || phone.includes('9876543210');
-        const userRole = isAdmin ? 'operator' : 'owner';
+        const userRole: 'operator' | 'owner' | 'admin' = isAdmin ? 'operator' : 'owner';
 
-        authStore.login(phone, res.access_token, userRole, res.refresh_token, res.owner);
+        const ownerProfile = res.owner ? { ...res.owner, email: res.owner.email ?? undefined, role: userRole } : null;
+        authStore.login(phone, res.access_token, userRole, res.refresh_token, ownerProfile);
         toast.success('Session verified successfully');
         
         if (isAdmin) {

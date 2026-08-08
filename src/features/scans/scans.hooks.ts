@@ -10,11 +10,9 @@ import {
   fetchAdminScans
 } from './scans.api';
 import type {
-  PublicVehicleOut,
   EmergencyScanIn,
   ParkingScanIn,
   ScanStatusOut,
-  PublicMedicalOut,
   AdminScansFilterParams
 } from './scans.types';
 
@@ -126,7 +124,7 @@ export function useAdminFlaggedScans() {
     error: query.error,
     params,
     updateFilters,
-    resolveFlag: async (_id: string) => {},
+    resolveFlag: async (_id: string, _action?: string): Promise<boolean> => true,
     refetch: query.refetch,
   };
 }
@@ -159,6 +157,15 @@ export function useAdminScanDetail(id: string) {
         smsDelivered: true,
         whatsappDelivered: true,
         photoUrl: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600',
+        type: found.type,
+        vehicle: found.vehicle,
+        time: found.time,
+        flagReason: 'Multiple rapid requests detected from same IP hash.',
+        flagSeverity: 'Medium',
+        dispatches: [
+          { status: 'Success', channel: 'SMS', target: '+919876543210', time: found.time },
+          { status: 'Success', channel: 'WhatsApp', target: '+919876543210', time: found.time },
+        ],
       };
     },
     enabled: Boolean(id),

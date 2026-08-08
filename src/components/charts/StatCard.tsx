@@ -1,12 +1,12 @@
 import React, { useId, useMemo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardTitle } from '@/components/ui/card';
 import { AnimatedCounter } from './AnimatedCounter';
 import { ChartSkeleton } from './ChartSkeleton';
 import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowUpRight01Icon, ArrowDownRight01Icon } from '@hugeicons/core-free-icons';
-import { formatNumber, sparklineDomain, trendColor, formatPercentage } from '@/lib/charts';
+import { formatNumber, trendColor, formatPercentage } from '@/lib/charts';
+import type { StatCardProps } from '@/types/charts';
 import { cn } from '@/lib/utils';
 
 export const StatCard: React.FC<StatCardProps> = React.memo(({
@@ -21,14 +21,10 @@ export const StatCard: React.FC<StatCardProps> = React.memo(({
   suffix = '',
 }) => {
   const gradientId = useId();
-  
-  const sparklineMinMax = useMemo(() => {
-    return sparklineDomain(sparklineData);
-  }, [sparklineData]);
 
   // Format sparkline data points into objects compatible with Recharts
   const chartData = useMemo(() => {
-    return sparklineData.map((val, idx) => ({ id: idx, value: val }));
+    return sparklineData.map((val: number, idx: number) => ({ id: idx, value: val }));
   }, [sparklineData]);
 
   // Determine accent color and indicators based on trend direction
@@ -112,7 +108,6 @@ export const StatCard: React.FC<StatCardProps> = React.memo(({
                   strokeWidth={1.5}
                   fillOpacity={1}
                   fill={`url(#${gradientId})`}
-                  domain={sparklineMinMax}
                 />
               </AreaChart>
             </ResponsiveContainer>
