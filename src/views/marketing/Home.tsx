@@ -1396,14 +1396,14 @@ export default function Home() {
 
         <HazardRule />
 
-        <FadeInSection className="relative z-10 space-y-10 max-w-xl px-6 flex flex-col items-center pt-16">
-          <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 tracking-[0.2em] uppercase font-mono">
+        <FadeInSection className="relative z-10 space-y-8 sm:space-y-10 max-w-xl px-4 sm:px-6 flex flex-col items-center pt-12 sm:pt-16 w-full max-w-full overflow-hidden">
+          <p className="text-[10px] sm:text-xs font-semibold text-zinc-500 dark:text-zinc-400 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-mono text-center">
             Ready to secure your vehicle?
           </p>
 
-          <div className="relative select-none pb-2 flex flex-col items-center">
+          <div className="relative select-none pb-2 flex flex-col items-center w-full max-w-full overflow-hidden">
             <motion.h1
-              className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-300 dark:to-zinc-700 uppercase font-display leading-none"
+              className="text-3xl min-[380px]:text-4xl min-[480px]:text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight min-[380px]:tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-300 dark:to-zinc-700 uppercase font-display leading-none text-center max-w-full break-words select-none"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1412,20 +1412,20 @@ export default function Home() {
               VAAHANSAFE
             </motion.h1>
             <div
-              className="absolute top-[80%] opacity-15 pointer-events-none scale-y-[-0.8] blur-[0.5px]"
+              className="absolute top-[80%] opacity-15 pointer-events-none scale-y-[-0.8] blur-[0.5px] w-full max-w-full overflow-hidden"
               style={{
                 maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 60%)',
                 WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 60%)',
               }}
             >
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-300 dark:to-zinc-700 uppercase font-display leading-none">
+              <h1 className="text-3xl min-[380px]:text-4xl min-[480px]:text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight min-[380px]:tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-zinc-950 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-300 dark:to-zinc-700 uppercase font-display leading-none text-center max-w-full break-words select-none">
                 VAAHANSAFE
               </h1>
             </div>
           </div>
 
           <motion.p
-            className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm font-sans leading-relaxed max-w-md pt-8"
+            className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm font-sans leading-relaxed max-w-md pt-4 sm:pt-8 text-center px-2"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -1436,7 +1436,7 @@ export default function Home() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-2"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto justify-center pt-2 px-2"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1444,13 +1444,13 @@ export default function Home() {
           >
             <Button
               onClick={() => navigate('/dashboard')}
-              className="h-10 px-8 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-bold transition-all cursor-pointer text-xs tracking-wide flex items-center justify-center border border-zinc-900 dark:border-zinc-300"
+              className="h-11 px-8 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:hover:bg-zinc-200 dark:text-zinc-950 font-bold transition-all cursor-pointer text-xs tracking-wide flex items-center justify-center border border-zinc-900 dark:border-zinc-300 w-full sm:w-auto"
             >
               Get Started
             </Button>
             <Button
               onClick={() => navigate('/how-it-works')}
-              className="h-10 px-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-white dark:border-zinc-700 font-bold transition-all cursor-pointer text-xs tracking-wide flex items-center justify-center gap-2"
+              className="h-11 px-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-white dark:border-zinc-700 font-bold transition-all cursor-pointer text-xs tracking-wide flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               See How It Works <HugeiconsIcon icon={ArrowRight01Icon} className="w-3.5 h-3.5" />
             </Button>
