@@ -1,1 +1,21 @@
-# Placeholder
+# VaahanSafe Robots.txt
+User-agent: *
+Allow: /
+Allow: /how-it-works
+Allow: /features
+Allow: /pricing
+Allow: /faq
+Allow: /contact-sales
+Allow: /privacy
+Allow: /terms
+Allow: /scan/
+
+# Disallow authenticated application dashboards and admin portals
+Disallow: /app/
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /login
+
+# Sitemap location
+Sitemap: https://vaahansafe.com/sitemap.xml

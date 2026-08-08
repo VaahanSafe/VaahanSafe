@@ -1,1 +1,20 @@
-{}
+{
+  "short_name": "VaahanSafe",
+  "name": "VaahanSafe | Intelligent Vehicle Safety & Real-time Tracking",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "display": "standalone"
+}
